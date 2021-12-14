@@ -18,14 +18,15 @@
         "MessageError": true,
         "provider": true,
         "TSSEB": true,
+        "TWFEBB": true,
+        "TWMarketScanner": true,
+        "TWSEB": true,
+        "TWSSS": true,
         "TWSV": true,
         "unlockWindow": true,
         "videoLimiter": true,
         "west": true,
-        "wman": true,
-        "TWMarketScanner": true,
-        "TWSSS": true,
-        "TWSEB": true
+        "wman": true
     },
     "rules": {
         "prettier/prettier": "error",

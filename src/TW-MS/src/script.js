@@ -1,6 +1,6 @@
 var TWMarketScanner = {
     SCRIPT_NAME: 'TW Market Scanner',
-    VERSION: '@@scriptVersion', // grunt will import version from package.json
+    VERSION: '1.2.2',
     TIMER: 600000, // in miliseconds
     MAX_OFFERS: 10, // count of items to find in the market
     NO_LIMIT: 9999999, // max price if set 0 or empty string

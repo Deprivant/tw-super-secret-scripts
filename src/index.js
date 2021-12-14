@@ -5,6 +5,7 @@ var TWSSS = {
     languagePrefix: Game.locale === 'cs_CZ' ? 'cs' : 'en',
     twsvSetting: undefined,
     twsebSetting: undefined,
+    twfebbSetting: undefined,
 
     language: {
         cs: {
@@ -13,11 +14,16 @@ var TWSSS = {
             saveButton: 'Uložit',
             twsvCheckboxLabel: 'Přeskoč videa a vezmi rovnou odměnu',
             twsebCheckboxLabel: 'Zobraz více informací o energii',
+            twfebbCheckboxLabel:
+                'Oprav grafiku export buttonu v Gold Jobs Finder',
         },
         en: {
             closeButton: 'Close',
             setting: 'Setting',
             saveButton: 'Save',
+            twsvCheckboxLabel: 'Skip video and take reward immediately',
+            twsebCheckboxLabel: 'Show enhanced energy bar',
+            twfebbCheckboxLabel: 'Fix export button bug Gold Jobs Finder',
         },
     },
 };
@@ -26,9 +32,14 @@ TWSSS.getSetting = function () {
     var savedSetting = JSON.parse(localStorage.getItem(TWSSS.SETTING_PREFIX));
 
     if (!savedSetting)
-        savedSetting = { tmsv: { power: true }, twseb: { power: true } };
+        savedSetting = {
+            tmsv: { power: true },
+            twseb: { power: true },
+            twfebb: { power: true },
+        };
     TWSSS.twsvSetting = savedSetting.tmsv || { power: true };
     TWSSS.twsebSetting = savedSetting.twseb || { power: true };
+    TWSSS.twfebbSetting = savedSetting.twfebb || { power: true };
 };
 
 TWSSS.startScripts = function () {
@@ -45,6 +56,12 @@ TWSSS.startScripts = function () {
     } else {
         TWSEB.stop();
     }
+
+    if (TWSSS.twfebbSetting.power) {
+        TWFEBB.run();
+    } else {
+        TWFEBB.stop();
+    }
 };
 
 TWSSS.setStyle = function () {
@@ -56,9 +73,10 @@ TWSSS.showSetting = function () {
     var buttonsWrapper,
         cancelBtn,
         form,
-        twsvCheckbox,
+        twsvCheckbox, // skip video
         footer,
-        twsebCheckbox,
+        twsebCheckbox, // show energy bar
+        twfebbCheckbox, // fix export button bug
         info,
         saveBtn,
         scrollPane,
@@ -70,8 +88,8 @@ TWSSS.showSetting = function () {
         .open('twsss-setting', null)
         .setMiniTitle(TWSSS.language[TWSSS.languagePrefix].setting)
         .setTitle(TWSSS.language[TWSSS.languagePrefix].setting)
-        .setMinSize(360, 235)
-        .setSize(360, 235);
+        .setMinSize(360, 265)
+        .setSize(360, 265);
 
     form = $('<div class="twss-form" />');
 
@@ -83,8 +101,13 @@ TWSSS.showSetting = function () {
         TWSSS.language[TWSSS.languagePrefix].twsebCheckboxLabel
     ).setSelected(TWSSS.twsebSetting.power);
 
+    twfebbCheckbox = new west.gui.Checkbox(
+        TWSSS.language[TWSSS.languagePrefix].twfebbCheckboxLabel
+    ).setSelected(TWSSS.twfebbSetting.power);
+
     form.append(twsvCheckbox.getMainDiv());
     form.append(twsebCheckbox.getMainDiv());
+    form.append(twfebbCheckbox.getMainDiv());
 
     buttonsWrapper = $("<div class='twsss-buttonsWrapper' />");
     saveBtn = new west.gui.Button(
@@ -95,6 +118,7 @@ TWSSS.showSetting = function () {
                 JSON.stringify({
                     twsv: { power: twsvCheckbox.isSelected() },
                     twseb: { power: twsebCheckbox.isSelected() },
+                    twfebb: { power: twfebbCheckbox.isSelected() },
                 })
             );
 
@@ -108,6 +132,12 @@ TWSSS.showSetting = function () {
                 TWSEB.run();
             } else {
                 TWSEB.stop();
+            }
+
+            if (twfebbCheckbox.isSelected()) {
+                TWFEBB.run();
+            } else {
+                TWFEBB.stop();
             }
 
             settingWindow.destroy();

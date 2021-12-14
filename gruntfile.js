@@ -23,6 +23,14 @@ module.exports = function (grunt) {
                     },
                 ],
             },
+            goldenJobsBug: {
+                options: {
+                    compress: true,
+                },
+                files: {
+                    'tmp/tw-febb.min.css': 'src/TW-FEBB/css/style.less',
+                },
+            },
         },
 
         concat: {
@@ -34,6 +42,7 @@ module.exports = function (grunt) {
                     'src/TW-SEB/src/script.js',
                     'src/TW-SV/src/script.js',
                     'src/TW-MS/src/script.js',
+                    'src/TW-FEBB/src/script.js',
                     'src/index.js',
                 ],
                 dest: 'tmp/index.js',
@@ -64,6 +73,7 @@ module.exports = function (grunt) {
                         },
 
                         // TW MARKET SCANNER
+
                         {
                             match: 'beepSound',
                             replacement:
@@ -73,6 +83,13 @@ module.exports = function (grunt) {
                             match: 'svgRadarIcon',
                             replacement:
                                 '<%= grunt.file.read("src/TW-MS/src/images/radar.svg") %>',
+                        },
+
+                        // FIX EXPORT BUTTON BUG (Gold Jobs Finder)
+                        {
+                            match: 'twfebbStyles',
+                            replacement:
+                                '<%= grunt.file.read("tmp/tw-febb.min.css") %>',
                         },
                     ],
                 },

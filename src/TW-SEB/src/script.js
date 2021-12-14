@@ -69,7 +69,9 @@ TWSEB.updateBar = function () {
             ? TWSEB.language[TWSEB.languagePrefix].fullEnergyInfo
             : onePointLeft.formatDuration()
     );
-    $('.TWSEB-seb-ephc').text(Character.maxEnergy * Character.energyRegen);
+    $('.TWSEB-seb-ephc').text(
+        (Character.maxEnergy * Character.energyRegen).toFixed(2)
+    );
     $('.TWSEB-seb-oplc').text(
         isFullEnergy
             ? TWSEB.language[TWSEB.languagePrefix].fullEnergyInfo
