@@ -1,6 +1,6 @@
 var TWMarketScanner = {
     SCRIPT_NAME: 'TW Market Scanner',
-    VERSION: '1.2.2',
+    VERSION: '1.2.3',
     TIMER: 600000, // in miliseconds
     MAX_OFFERS: 10, // count of items to find in the market
     NO_LIMIT: 9999999, // max price if set 0 or empty string
@@ -179,6 +179,12 @@ TWMarketScanner.getAllScans = function () {
             found,
             i,
             u;
+
+        if ($('#TWMS-result-button').length) {
+            // eslint-disable-next-line no-console
+            console.log('Schovávám minulé okno s výsledkama');
+            TWMarketScanner.resultsWindow.hide();
+        }
 
         TWMarketScanner.resultsWindow = new west.gui.Dialog(
             TWMarketScanner.language[
@@ -360,7 +366,7 @@ TWMarketScanner.generateTable = function (data) {
                 "' /></td><td class='twms-text-left'>" +
                 itemText +
                 "<td class='twms-text-right'>$" +
-                format_money(pricePerPiece) +
+                format_money(Math.round(pricePerPiece * 100) / 100) +
                 "</td><td class='twms-text-center'>" +
                 format_number(itemCount) +
                 "</td><td class='twms-text-right'>$" +
