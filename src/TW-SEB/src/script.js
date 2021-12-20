@@ -91,7 +91,7 @@ TWSEB.updateBar = function () {
 };
 
 TWSEB.updateExpInfo = function () {
-    $('.TWSEB-seb-ephc').text(
+    $('#restExpInfo').text(
         '(-' +
             (Character.getMaxExperience4Level() -
                 Character.getExperience4Level()) +
