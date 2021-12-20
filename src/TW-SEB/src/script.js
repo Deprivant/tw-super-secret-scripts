@@ -5,13 +5,13 @@ var TWSEB = {
         cs: {
             onePointTimeLeft: 'Další bod',
             perHourLabel: 'Za hod.',
-            fullEnergyLabel: '100%',
+            fullEnergyLabel: '100 %',
             fullEnergyInfo: '---',
         },
         en: {
             onePointTimeLeft: 'Next',
             perHourLabel: 'Per Hr.',
-            fullEnergyLabel: '100%',
+            fullEnergyLabel: '100 %',
             fullEnergyInfo: '---',
         },
     },
@@ -44,9 +44,20 @@ TWSEB.renderBar = function () {
     TWSEB.updateBar();
 };
 
+TWSEB.renderExpInfo = function () {
+    var RestExpInfo = $(
+        '<span id="restExpInfo">(-' +
+            (Character.getMaxExperience4Level() -
+                Character.getExperience4Level()) +
+            ')</span>'
+    );
+    $('#ui_experience_bar .fill_wrap').after(RestExpInfo);
+};
+
 TWSEB.startTimer = function () {
     TWSEB.timer = setTimeout(function () {
         TWSEB.updateBar();
+        TWSEB.updateExpInfo();
         TWSEB.startTimer();
     }, 1000);
 };
@@ -79,12 +90,23 @@ TWSEB.updateBar = function () {
     );
 };
 
+TWSEB.updateExpInfo = function () {
+    $('.TWSEB-seb-ephc').text(
+        '(-' +
+            (Character.getMaxExperience4Level() -
+                Character.getExperience4Level()) +
+            ')'
+    );
+};
+
 TWSEB.run = function () {
     TWSEB.renderBar();
+    TWSEB.renderExpInfo();
     TWSEB.startTimer();
 };
 
 TWSEB.stop = function () {
     $('.TWSEB-seb').remove();
+    $('#restExpInfo').remove();
     TWSEB.stopTimer();
 };

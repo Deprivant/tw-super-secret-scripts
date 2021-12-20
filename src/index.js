@@ -13,7 +13,8 @@ var TWSSS = {
             setting: 'Nastavení',
             saveButton: 'Uložit',
             twsvCheckboxLabel: 'Přeskoč videa a vezmi rovnou odměnu',
-            twsebCheckboxLabel: 'Zobraz více informací o energii',
+            twsebCheckboxLabel:
+                'Zobraz více informací o energii a zkušenostech',
             twfebbCheckboxLabel:
                 'Oprav grafiku export buttonu v Gold Jobs Finder',
         },
@@ -22,7 +23,7 @@ var TWSSS = {
             setting: 'Setting',
             saveButton: 'Save',
             twsvCheckboxLabel: 'Skip video and take reward immediately',
-            twsebCheckboxLabel: 'Show enhanced energy bar',
+            twsebCheckboxLabel: 'Show enhanced energy and exp bar',
             twfebbCheckboxLabel: 'Fix export button bug Gold Jobs Finder',
         },
     },
