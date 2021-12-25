@@ -17,6 +17,7 @@ module.exports = function (grunt) {
                         src: [
                             'src/TW-SEB/src/css/style.less',
                             'src/TW-MS/src/css/style.less',
+                            'src/TW-JEI/src/css/style.less',
                             'src/css/style.less',
                         ],
                         dest: 'tmp/styles.min.css',
@@ -43,6 +44,7 @@ module.exports = function (grunt) {
                     'src/TW-SV/src/script.js',
                     'src/TW-MS/src/script.js',
                     'src/TW-FEBB/src/script.js',
+                    'src/TW-JEI/src/script.js',
                     'src/index.js',
                 ],
                 dest: 'tmp/index.js',

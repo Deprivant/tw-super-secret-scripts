@@ -6,6 +6,7 @@ var TWSSS = {
     twsvSetting: undefined,
     twsebSetting: undefined,
     twfebbSetting: undefined,
+    twjeiSetting: undefined,
 
     language: {
         cs: {
@@ -17,6 +18,7 @@ var TWSSS = {
                 'Zobraz více informací o energii a zkušenostech',
             twfebbCheckboxLabel:
                 'Oprav grafiku export buttonu v Gold Jobs Finder',
+            twjeiCheckboxLabel: 'Zobraz více info v jobs okně',
         },
         en: {
             closeButton: 'Close',
@@ -25,6 +27,7 @@ var TWSSS = {
             twsvCheckboxLabel: 'Skip video and take reward immediately',
             twsebCheckboxLabel: 'Show enhanced energy and exp bar',
             twfebbCheckboxLabel: 'Fix export button bug Gold Jobs Finder',
+            twjeiCheckboxLabel: 'Show enhanced info in the Jobs Window',
         },
     },
 };
@@ -37,10 +40,12 @@ TWSSS.getSetting = function () {
             tmsv: { power: true },
             twseb: { power: true },
             twfebb: { power: true },
+            twjei: { power: true },
         };
     TWSSS.twsvSetting = savedSetting.tmsv || { power: true };
     TWSSS.twsebSetting = savedSetting.twseb || { power: true };
     TWSSS.twfebbSetting = savedSetting.twfebb || { power: true };
+    TWSSS.twjeiSetting = savedSetting.twjei || { power: true };
 };
 
 TWSSS.startScripts = function () {
@@ -63,6 +68,12 @@ TWSSS.startScripts = function () {
     } else {
         TWFEBB.stop();
     }
+
+    if (TWSSS.twjeiSetting.power) {
+        TWJEI.run();
+    } else {
+        TWJEI.stop();
+    }
 };
 
 TWSSS.setStyle = function () {
@@ -78,6 +89,7 @@ TWSSS.showSetting = function () {
         footer,
         twsebCheckbox, // show energy bar
         twfebbCheckbox, // fix export button bug
+        twjeiCheckbox, // show jobs extended info
         info,
         saveBtn,
         scrollPane,
@@ -89,8 +101,8 @@ TWSSS.showSetting = function () {
         .open('twsss-setting', null)
         .setMiniTitle(TWSSS.language[TWSSS.languagePrefix].setting)
         .setTitle(TWSSS.language[TWSSS.languagePrefix].setting)
-        .setMinSize(360, 265)
-        .setSize(360, 265);
+        .setMinSize(360, 310)
+        .setSize(360, 310);
 
     form = $('<div class="twss-form" />');
 
@@ -106,9 +118,14 @@ TWSSS.showSetting = function () {
         TWSSS.language[TWSSS.languagePrefix].twfebbCheckboxLabel
     ).setSelected(TWSSS.twfebbSetting.power);
 
+    twjeiCheckbox = new west.gui.Checkbox(
+        TWSSS.language[TWSSS.languagePrefix].twjeiCheckboxLabel
+    ).setSelected(TWSSS.twjeiSetting.power);
+
     form.append(twsvCheckbox.getMainDiv());
     form.append(twsebCheckbox.getMainDiv());
     form.append(twfebbCheckbox.getMainDiv());
+    form.append(twjeiCheckbox.getMainDiv());
 
     buttonsWrapper = $("<div class='twsss-buttonsWrapper' />");
     saveBtn = new west.gui.Button(
@@ -120,6 +137,7 @@ TWSSS.showSetting = function () {
                     twsv: { power: twsvCheckbox.isSelected() },
                     twseb: { power: twsebCheckbox.isSelected() },
                     twfebb: { power: twfebbCheckbox.isSelected() },
+                    twjei: { power: twjeiCheckbox.isSelected() },
                 })
             );
 
@@ -139,6 +157,12 @@ TWSSS.showSetting = function () {
                 TWFEBB.run();
             } else {
                 TWFEBB.stop();
+            }
+
+            if (twjeiCheckbox.isSelected()) {
+                TWJEI.run();
+            } else {
+                TWJEI.stop();
             }
 
             settingWindow.destroy();
@@ -198,6 +222,7 @@ TWSSS.init = function () {
 $(document).ready(function () {
     try {
         TWSSS.setStyle();
+        TWJEI.init();
         // TSSEB.init();
         TWSV.init();
         TWSSS.init();
