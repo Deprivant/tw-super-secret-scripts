@@ -19,6 +19,7 @@ var TWSSS = {
             twfebbCheckboxLabel:
                 'Oprav grafiku export buttonu v Gold Jobs Finder',
             twjeiCheckboxLabel: 'Zobraz více info v jobs okně',
+            twgbButtonLabel: 'Pošli všem event dárky',
         },
         en: {
             closeButton: 'Close',
@@ -28,6 +29,7 @@ var TWSSS = {
             twsebCheckboxLabel: 'Show enhanced energy and exp bar',
             twfebbCheckboxLabel: 'Fix export button bug Gold Jobs Finder',
             twjeiCheckboxLabel: 'Show enhanced info in the Jobs Window',
+            twgbButtonLabel: 'Try to send all event gifts',
         },
     },
 };
@@ -87,6 +89,7 @@ TWSSS.showSetting = function () {
         form,
         twsvCheckbox, // skip video
         footer,
+        twgbButton,
         twsebCheckbox, // show energy bar
         twfebbCheckbox, // fix export button bug
         twjeiCheckbox, // show jobs extended info
@@ -101,8 +104,8 @@ TWSSS.showSetting = function () {
         .open('twsss-setting', null)
         .setMiniTitle(TWSSS.language[TWSSS.languagePrefix].setting)
         .setTitle(TWSSS.language[TWSSS.languagePrefix].setting)
-        .setMinSize(360, 310)
-        .setSize(360, 310);
+        .setMinSize(360, 345)
+        .setSize(360, 345);
 
     form = $('<div class="twss-form" />');
 
@@ -122,10 +125,18 @@ TWSSS.showSetting = function () {
         TWSSS.language[TWSSS.languagePrefix].twjeiCheckboxLabel
     ).setSelected(TWSSS.twjeiSetting.power);
 
+    twgbButton = new west.gui.Button(
+        TWSSS.language[TWSSS.languagePrefix].twgbButtonLabel,
+        function () {
+            TWGiftBomber.init();
+        }
+    );
+
     form.append(twsvCheckbox.getMainDiv());
     form.append(twsebCheckbox.getMainDiv());
     form.append(twfebbCheckbox.getMainDiv());
     form.append(twjeiCheckbox.getMainDiv());
+    form.append(twgbButton.getMainDiv());
 
     buttonsWrapper = $("<div class='twsss-buttonsWrapper' />");
     saveBtn = new west.gui.Button(

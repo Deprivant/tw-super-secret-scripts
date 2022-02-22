@@ -18,6 +18,7 @@ module.exports = function (grunt) {
                             'src/TW-SEB/src/css/style.less',
                             'src/TW-MS/src/css/style.less',
                             'src/TW-JEI/src/css/style.less',
+                            'src/TW-GB/src/css/style.less',
                             'src/css/style.less',
                         ],
                         dest: 'tmp/styles.min.css',
@@ -45,6 +46,7 @@ module.exports = function (grunt) {
                     'src/TW-MS/src/script.js',
                     'src/TW-FEBB/src/script.js',
                     'src/TW-JEI/src/script.js',
+                    'src/TW-GB/src/script.js',
                     'src/index.js',
                 ],
                 dest: 'tmp/index.js',
@@ -90,6 +92,14 @@ module.exports = function (grunt) {
                         // FIX EXPORT BUTTON BUG (Gold Jobs Finder)
                         {
                             match: 'twfebbStyles',
+                            replacement:
+                                '<%= grunt.file.read("tmp/tw-febb.min.css") %>',
+                        },
+
+                        // TW Gift Bomber
+
+                        {
+                            match: 'twgbStyles',
                             replacement:
                                 '<%= grunt.file.read("tmp/tw-febb.min.css") %>',
                         },
