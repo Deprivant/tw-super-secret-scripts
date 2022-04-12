@@ -1,7 +1,7 @@
 var TWMarketScanner = {
     SCRIPT_NAME: 'TW Market Scanner',
-    VERSION: '1.2.3',
-    TIMER: 600000, // in miliseconds
+    VERSION: '1.2.4',
+    TIMER: 900000, // in miliseconds
     MAX_OFFERS: 10, // count of items to find in the market
     NO_LIMIT: 9999999, // max price if set 0 or empty string
     SETTING_PREFIX: 'twms_settings_' + Game.worldName,
