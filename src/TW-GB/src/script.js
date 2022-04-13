@@ -40,7 +40,9 @@ TWGiftBomber.getList = function () {
                 ? eventActivations[friendsList[s].playerId][type]
                 : 0;
         time = i + parseInt(n.cooldown, 10) - new ServerDate().getTime() / 1e3;
-        if (time < 0) {
+        if (time > 0) {
+            // TODO: need work
+        } else {
             waitingFriends.push({
                 n: friendsList[s].pname,
                 i: friendsList[s].playerId,
