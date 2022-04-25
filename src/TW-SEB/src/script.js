@@ -7,12 +7,14 @@ var TWSEB = {
             perHourLabel: 'Za hod.',
             fullEnergyLabel: '100 %',
             fullEnergyInfo: '---',
+            lessThenOneSec: '< 1 sek.',
         },
         en: {
             oneEnergyPointTimeLeft: 'Next',
             perHourLabel: 'Per Hr.',
             fullEnergyLabel: '100 %',
             fullEnergyInfo: '---',
+            lessThenOneSec: '< 1 sec',
         },
     },
 };
@@ -101,13 +103,17 @@ TWSEB.updateBar = function () {
         3600 / (Character.maxHealth * Character.healthRegen);
     var oneHelthPointLeft =
         oneHealthPointTime - Game.getServerTime() + Character.healthDate;
+
     var allHealthTimeLeft =
         oneHelthPointLeft +
         (Character.maxHealth - Character.health - 1) * oneHealthPointTime;
 
     $('.TWSEB-seb-tlc').text(
+        // eslint-disable-next-line no-nested-ternary
         isFullEnergy
             ? TWSEB.language[TWSEB.languagePrefix].fullEnergyInfo
+            : oneEnergyPointLeft < 1
+            ? TWSEB.language[TWSEB.languagePrefix].lessThenOneSec
             : oneEnergyPointLeft.formatDuration()
     );
     $('.TWSEB-seb-ephc').text(
@@ -120,8 +126,11 @@ TWSEB.updateBar = function () {
     );
 
     $('.TWSEB-seb-health-tlc').text(
+        // eslint-disable-next-line no-nested-ternary
         isFullHealth
             ? TWSEB.language[TWSEB.languagePrefix].fullEnergyInfo
+            : oneHelthPointLeft < 1
+            ? TWSEB.language[TWSEB.languagePrefix].lessThenOneSec
             : oneHelthPointLeft.formatDuration()
     );
 
