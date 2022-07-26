@@ -8,6 +8,7 @@ var TWSEB = {
             fullEnergyLabel: '100 %',
             fullEnergyInfo: '---',
             lessThenOneSec: '< 1 sek.',
+            koProtection: 'Duelová ochrana do ',
         },
         en: {
             oneEnergyPointTimeLeft: 'Next',
@@ -15,6 +16,7 @@ var TWSEB = {
             fullEnergyLabel: '100 %',
             fullEnergyInfo: '---',
             lessThenOneSec: '< 1 sec',
+            koProtection: 'Duel protection ends at ',
         },
     },
 };
@@ -63,6 +65,19 @@ TWSEB.renderBar = function () {
     $(superEnergyBar).append(superEnergyInfoHealthWrapper);
     $(superEnergyBar).append(superEnergyInfoWrapper);
     $('#ui_character_container').append(superEnergyBar);
+
+    if (Character.getDuelProtection(true) > new ServerDate().getTime()) {
+        var r = Character.getDuelProtection(true);
+
+        var KOWrapper = new west.gui.Icon('clock')
+            .addClass('TWSEB-ko-warning')
+            .setTooltip(
+                TWSEB.language[TWSEB.languagePrefix].koProtection +
+                    new Date(r).toLocaleString()
+            );
+
+        $('#ui_character_container').append(KOWrapper.getMainDiv());
+    }
     TWSEB.updateBar();
 };
 
