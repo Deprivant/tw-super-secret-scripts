@@ -82,11 +82,16 @@ TWSEB.renderBar = function () {
 };
 
 TWSEB.renderExpInfo = function () {
+    var RestExpInfoValue =
+        Character.getMaxExperience4Level() - Character.getExperience4Level();
     var RestExpInfo = $(
         '<span id="restExpInfo">(-' +
-            (Character.getMaxExperience4Level() -
-                Character.getExperience4Level()) +
-            ')</span>'
+            format_number(RestExpInfoValue) +
+            ', ' +
+            format_number(
+                Math.round((RestExpInfoValue / Character.energy) * 100) / 100
+            ) +
+            ') </span>'
     );
     $('#ui_experience_bar .fill_wrap').after(RestExpInfo);
 };
@@ -160,10 +165,16 @@ TWSEB.updateBar = function () {
 };
 
 TWSEB.updateExpInfo = function () {
+    var RestExpInfoValue =
+        Character.getMaxExperience4Level() - Character.getExperience4Level();
+
     $('#restExpInfo').text(
         '(-' +
-            (Character.getMaxExperience4Level() -
-                Character.getExperience4Level()) +
+            RestExpInfoValue +
+            ', ' +
+            format_number(
+                Math.round((RestExpInfoValue / Character.energy) * 100) / 100
+            ) +
             ')'
     );
 };

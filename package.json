@@ -1,6 +1,6 @@
 {
     "name": "tw-super-secret-scripts",
-    "version": "0.0.9",
+    "version": "0.1.0",
     "description": "The Script for the-west.cz.",
     "main": "scr/index.js",
     "author": "Deprivant",
