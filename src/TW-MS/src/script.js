@@ -1,6 +1,6 @@
 var TWMarketScanner = {
     SCRIPT_NAME: 'TW Market Scanner',
-    VERSION: '1.2.4',
+    VERSION: '1.2.5',
     TIMER: 900000, // in miliseconds
     MAX_OFFERS: 10, // count of items to find in the market
     NO_LIMIT: 9999999, // max price if set 0 or empty string
@@ -206,7 +206,7 @@ TWMarketScanner.getAllScans = function () {
 
                     for (u = 0; u < resultForOneItem.length; u += 1) {
                         currentBidPricePerPiece =
-                            resultForOneItem[u].current_bid /
+                            resultForOneItem[u].auction_price /
                             resultForOneItem[u].item_count;
                         maxPricePerPiece =
                             resultForOneItem[u].max_price /
@@ -223,7 +223,7 @@ TWMarketScanner.getAllScans = function () {
                             itemId = resultForOneItem[u].item_id;
 
                             totalPrice =
-                                resultForOneItem[u].current_bid ||
+                                resultForOneItem[u].auction_price ||
                                 resultForOneItem[u].max_price;
 
                             dataForItem[u] = {
