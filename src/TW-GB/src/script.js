@@ -155,6 +155,11 @@ TWGiftBomber.start = function () {
     TWGiftBomber.startSending();
 };
 
+TWGiftBomber.sendByDoubleClick = function () {
+    const event = new MouseEvent('dblclick');
+    document.querySelector('.ses_event_icon').dispatchEvent(event);
+};
+
 // script init
 TWGiftBomber.init = function () {
     TWGiftBomber.setStyle();

@@ -20,6 +20,7 @@ var TWSSS = {
                 'Oprav grafiku export buttonu v Gold Jobs Finder',
             twjeiCheckboxLabel: 'Zobraz více info v jobs okně',
             twgbButtonLabel: 'Pošli všem event dárky',
+            twgbButtonDblClickLabel: 'Pošli všem event dárky doubleclickem',
         },
         en: {
             closeButton: 'Close',
@@ -30,6 +31,8 @@ var TWSSS = {
             twfebbCheckboxLabel: 'Fix export button bug Gold Jobs Finder',
             twjeiCheckboxLabel: 'Show enhanced info in the Jobs Window',
             twgbButtonLabel: 'Try to send all event gifts',
+            twgbButtonDblCLickLabel:
+                'Try to send all event gifts by doubleclick',
         },
     },
 };
@@ -90,6 +93,7 @@ TWSSS.showSetting = function () {
         twsvCheckbox, // skip video
         footer,
         twgbButton,
+        twgbDblClickButton,
         twsebCheckbox, // show energy bar
         twfebbCheckbox, // fix export button bug
         twjeiCheckbox, // show jobs extended info
@@ -104,8 +108,8 @@ TWSSS.showSetting = function () {
         .open('twsss-setting', null)
         .setMiniTitle(TWSSS.language[TWSSS.languagePrefix].setting)
         .setTitle(TWSSS.language[TWSSS.languagePrefix].setting)
-        .setMinSize(360, 345)
-        .setSize(360, 345);
+        .setMinSize(360, 380)
+        .setSize(360, 380);
 
     form = $('<div class="twss-form" />');
 
@@ -132,11 +136,19 @@ TWSSS.showSetting = function () {
         }
     );
 
+    twgbDblClickButton = new west.gui.Button(
+        TWSSS.language[TWSSS.languagePrefix].twgbButtonDblClickLabel,
+        function () {
+            TWGiftBomber.sendByDoubleClick();
+        }
+    );
+
     form.append(twsvCheckbox.getMainDiv());
     form.append(twsebCheckbox.getMainDiv());
     form.append(twfebbCheckbox.getMainDiv());
     form.append(twjeiCheckbox.getMainDiv());
     form.append(twgbButton.getMainDiv());
+    form.append(twgbDblClickButton.getMainDiv());
 
     buttonsWrapper = $("<div class='twsss-buttonsWrapper' />");
     saveBtn = new west.gui.Button(
